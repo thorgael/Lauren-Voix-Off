@@ -1,0 +1,153 @@
+{% extends "::admin.html.twig" %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<style type="text/css">
+		.bordered-portfolio
+		{
+			border: 2px black solid;
+			border-radius: 5px;
+			margin: 1px;
+			height: 154px;
+		}
+
+		.img-portfolio
+		{
+			max-height: 200px;
+			min-height: 200px;
+			margin: auto;
+		}
+
+		.div-height
+		{
+			height: 100%;
+		}
+
+		.h4-portfolio
+		{
+			text-align: center;
+			color: black;
+			text-decoration: none;
+		}
+
+		.a-img-delete
+		{
+			position: absolute;
+			right: 18px;
+		}
+
+		.cuadro_intro_hover{
+    	padding: 0px;
+		position: relative;
+		overflow: hidden;
+		height: 200px;
+	}
+	.cuadro_intro_hover:hover .caption{
+		opacity: 1;
+		transform: translateY(-150px);
+		-webkit-transform:translateY(-150px);
+		-moz-transform:translateY(-150px);
+		-ms-transform:translateY(-150px);
+		-o-transform:translateY(-150px);
+	}
+	.cuadro_intro_hover img{
+		z-index: 4;
+	}
+	.cuadro_intro_hover .caption{
+		position: absolute;
+		top:150px;
+		-webkit-transition:all 0.3s ease-in-out;
+		-moz-transition:all 0.3s ease-in-out;
+		-o-transition:all 0.3s ease-in-out;
+		-ms-transition:all 0.3s ease-in-out;
+		transition:all 0.3s ease-in-out;
+		width: 100%;
+	}
+	.cuadro_intro_hover .blur{
+		background-color: rgba(0,0,0,0.7);
+		height: 300px;
+		z-index: 5;
+		position: absolute;
+		width: 100%;
+	}
+	.cuadro_intro_hover .caption-text{
+		z-index: 10;
+		color: #fff;
+		position: absolute;
+		height: 300px;
+		text-align: center;
+		top:-20px;
+		width: 100%;
+	}
+	</style>
+{% endblock %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Gestion des contenus
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-th-large"></i> Mon portfolio
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top:10px;">
+	<div class="row form-group">
+		<div class="panel-heading">
+        	<h3 class="panel-title"><i class="fa fa-suitcase"></i> Mes projets</h3>
+    	</div>
+		{% for pf in portfolios %}
+			<div class="col-lg-3" style="margin-top: 10px;">
+				<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+					<p style="height: 100%;">
+						<img src="{% if pf.image %}{{ asset('uploads/' ~ pf.image.url ~ '/' ~ pf.image.id ~ '.' ~ pf.image.extension)}}{% endif %}" class="img-responsive" alt="{% if pf.image %}{{ pf.image.alt }}{% endif %}" style="height: 100%; margin: auto;">
+					</p>
+					<div class="caption">
+						<div class="blur">
+
+						</div>
+						<div class="caption-text">
+							<h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{ pf.title }}</h3>
+							{# <p>{{ pf.subTitle }}</p> #}
+							<a class=" btn btn-default" href="{{ path('admin_portfolio_read', {id: pf.id}) }}"><span class="glyphicon glyphicon-plus"> Voir</span></a>
+						</div>
+					</div>
+				</div>
+    		</div>
+        {% endfor %}
+        	<div class="col-sm-3 col-xs-6">
+                <a href="{{ path('admin_portfolio_create') }}">
+                    <img class="img-responsive portfolio-item img-portfolio" src="{{ asset('img/add.jpg')}}" alt="Ajouter une image">
+                    <h4 class="h4-portfolio">Ajouter un projet</h4>
+                </a>
+			</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+	<script type="text/javascript">
+		
+		//fonction de confirmation de suppression, qui redirige si c'est validé
+		$('.btn-delete-portfolio').confirmation({
+			rootSelector: '.btn-delete-portfolio',
+			onConfirm: function() {
+				document.location.href = $($(this).parent().parent().parent().parent().children()[0]).data('path');
+			}
+		});
+
+	</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "::admin.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contact
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_contact_list') }}"><i class="fa fa-envelope"></i> Liste des messages</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-envelope"></i> Fiche du message
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+		<div class="col-md-12 tab-content">
+			<div class=" col-sm-6 col-sm-push-3">
+				<div role="tabpanel" class="tab-pane fade in active" id="seite1">
+					<article class="panel panel-default">
+						<header class="panel-heading">
+							<h2 class="text-muted text-center"><span class="glyphicon"></span>{{ contact.title }}</h2>
+						</header>
+						<div class="panel-body">
+							<div class="actu-content">
+								<p class="actu-content">{{ contact.content|raw }}</p>
+							</div>
+							<hr>								
+						</div>
+			        	<footer class="panel-footer clearfix ">
+	                        <a href="{{path('admin_contact_delete',{id: contact.id})}}" title="Supprimer" class="btn btn-danger btn-delete-contact" data-toggle="confirmation" data-title="Etes-vous sure ?" data-placement="top" data-path="{{path('admin_contact_delete',{id: contact.id})}}"><i class="glyphicon glyphicon-remove"></i></a>
+	                        {% if contact.archived == false %}
+	                        	<a href="{{ path('admin_contact_archive', {id: contact.id, where: 'read'}) }}" title="Archiver" class="btn btn-info"><i class="fa fa-plus-square-o"></i></a>
+	                        {% else %}
+	                        	<a href="{{ path('admin_contact_archive', {id: contact.id, where: 'read'}) }}" title="Retirer l'archive" class="btn btn-primary"><i class="fa fa-minus-square-o"></i></a>
+	                        {% endif %}
+			        		<address class="pull-right date-actu-content" style=" margin-bottom: 0px; ">
+			        			Message envoyée le : {{ contact.date|date('Y-m-d H:i:s') }}
+			        		</address>
+			        	</footer>
+					</article>
+				</div>
+			</div>
+    	</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+	<script type="text/javascript">
+		
+		//fonction de confirmation de suppression, qui redirige si c'est validé
+		$('.btn-delete-contact').confirmation({
+			rootSelector: '.btn-delete-contact',
+			onConfirm: function() {
+				document.location.href = $($(this).parent().parent().parent().parent().children()[0]).data('path');
+			}
+		});
+
+	</script>
+{% endblock %}

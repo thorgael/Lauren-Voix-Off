@@ -1,0 +1,56 @@
+{% extends "::admin.html.twig" %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contenu du pied de page
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li>
+                    <i class="fa fa-hand-o-down"></i> <a href="{{ path('admin_footer_list') }}">Mon pied de page</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-align-left"></i> Contenu du pied de page
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+  	<div class="row">
+    	<div class="col-md-10 col-md-offset-1" >
+      		<div class="panel panel-info">
+        		<div class="panel-heading">
+          			<h3 class="panel-title">{{ footer.title }}</h3>
+        		</div>
+        		<div class="panel-body">
+          			{# <div class="row">
+        				{% for footerImage in footerImages %}
+                            <div class="col-md-2 col-md-offset-1" style="height: 200px; width: 200px;">
+        					   <img alt="{{ footerImage.image.alt }}" src="{{ asset('uploads/' ~ footerImage.image.url ~ '/' ~ footerImage.image.id ~ '.' ~ footerImage.image.extension) }}" class="img-responsive" style="height: 100%; margin: auto;">
+                            </div>
+        				{% endfor %}
+      				</div>
+                    <hr> #}
+                    <div class="row"> 
+                        {{ footer.content|raw }}
+                    </div>
+    			</div>
+         		<div class="panel-footer">
+                	<a href="{{ path('admin_footer_update',{id: footer.id}) }}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                	{# {% if footer.type == 1 %}
+                        <a href="{{ path('admin_footer_image', {id: footer.id}) }}" class="btn btn-sm btn-info"><i class="fa fa-picture-o"></i></a>
+                    {% endif %} #}
+                    <span class="pull-right">
+                	</span>
+            	</div>
+  			</div>
+		</div>
+		</div>
+{% endblock %}

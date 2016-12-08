@@ -1,0 +1,55 @@
+{% extends "::admin.html.twig" %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contenu de base
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li>
+                    <i class="fa fa-hand-peace-o"></i> <a href="{{ path('admin_base_list') }}">Contenu de base du site</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-apple"></i> Editer le logo
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
+			<div class="panel panel-default">
+	            <div class="panel-heading">
+	                <h3 class="panel-title"><i class="fa fa-users"></i> Formulaire</h3>
+	            </div>
+	            <div class="panel-picture" style="text-align: center;">
+	            	{% if logo.image %}
+	            		<img alt="{{ logo.image.alt }}" src="{{ asset('uploads/' ~ logo.image.url ~ '/' ~ logo.image.id ~ '.' ~ logo.image.extension) }}">
+	            	{% endif %}
+	            </div>
+				{{form_start(form)}}
+
+					{{form_errors(form)}}
+
+					<div class="form-group">
+			      		<label>
+			      			Image
+			      		</label>
+			        		{{ form_widget(form.image) }}
+			      		<p class="help-block">
+							{{ form_errors(form.image) }}
+			      		</p>
+				    </div>
+					{{ form_widget(form.save) }}
+				{{form_end(form)}}
+			</div>
+		</div>
+    </div>
+{% endblock %}

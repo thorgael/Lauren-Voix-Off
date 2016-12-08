@@ -1,0 +1,64 @@
+{% extends "::admin.html.twig" %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<style type="text/css">
+       .p-footer-object
+       {
+        text-align: center;
+       }
+	</style>
+{% endblock %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contenu du pied de page
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-hand-o-down"></i> Mon pied de page
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div class="row form-group">
+		<div class="panel-heading">
+        	<h3 class="panel-title"><i class="fa fa-suitcase"></i> Mes contenus (3 max)</h3>
+    	</div>
+		
+		<div class="col-lg-4" style="margin-top: 10px;">
+            <a href="{{ path('admin_footer_create', {type: 0}) }}">
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <p class="p-footer-object">Contenu de gauche</p>
+                    <p class="p-footer-object">(Informations de localisations & contact)</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4" style="margin-top: 10px;">
+            <a href="{{ path('admin_footer_create', {type: 1}) }}">
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <p class="p-footer-object">Contenu central</p>
+                    <p class="p-footer-object">(Réseaux sociaux)</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4" style="margin-top: 10px;">
+            <a href="{{ path('admin_footer_create', {type: 2}) }}">
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <p class="p-footer-object">Contenu de droite</p>
+                    <p class="p-footer-object">(Partenaires)</p>
+                </div>
+            </a>
+		</div>
+	</div>
+{% endblock %}
+

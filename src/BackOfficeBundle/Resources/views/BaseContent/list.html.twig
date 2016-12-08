@@ -1,0 +1,57 @@
+{% extends "::admin.html.twig" %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<style type="text/css">
+       .p-content-object
+       {
+        text-align: center;
+       }
+	</style>
+{% endblock %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contenu de base
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-hand-o-down"></i> Contenu de base du site
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div class="row form-group">		
+		<div class="col-lg-4" style="margin-top: 10px;">
+            <a href="{{ path('admin_base_create', {category: 0}) }}">
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <p class="p-content-object">Titre du site</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4" style="margin-top: 10px;">
+            <a href="{{ path('admin_base_create', {category: 1}) }}">
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <p class="p-content-object">Description du site</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4" style="margin-top: 10px;">
+            <a href="{{ path('admin_base_logo', {category: 2}) }}">
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <p class="p-content-object">Logo du site</p>
+                </div>
+            </a>
+		</div>
+	</div>
+{% endblock %}
+

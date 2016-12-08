@@ -1,0 +1,115 @@
+{% extends "::admin.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contact
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-envelope"></i> Liste des messages
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-lg-12">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">
+	                <h3 class="panel-title"><i class="fa fa-info-circle"></i> Listes des messages</h3>
+	            </div>
+	            <ul class="nav nav-tabs">
+				  <li class="active"><a data-toggle="tab" href="#admin-list-contact">Messages</a></li>
+				  <li><a data-toggle="tab" href="#admin-list-contact-archived">Archive</a></li>
+				</ul>
+				<div class="tab-content">
+			  		<div id="admin-list-contact" class="tab-pane fade in active">
+	                	<table class="table table-bordered table-striped">
+					      	<thead>
+					        	<tr>
+					          		<th>Titre</th>
+					          		<th>Nom</th>
+					          		<th>Email</th>
+					          		<th>Date d'envoie</th>
+					          		<th>Archiver</th>
+					          		<th>Supprimer</th>
+					        	</tr>
+					      	</thead>
+					      	<tbody>
+					      		{% for c in contactNotArchived %}
+						       		<tr {% if c.viewed == false %}class="info"{% endif %}>
+										<td><a href="{{ path('admin_contact_read',{id: c.id}) }}" >{{ c.title }}</a></td>
+										<td>{{ c.name }}</td>
+										<td>{{ c.email }}</td>
+										<td>{{ c.date|date('Y-m-d H:i:s') }}</td>
+										<td>
+											<a href="{{ path('admin_contact_archive', {id: c.id, where: 'list'}) }}" class="btn btn-sm btn-primary"><i class="fa fa-archive"></i> archiver</a>
+										</td>
+										<td><a href="{{ path('admin_contact_delete',{id: c.id}) }}" class="btn btn-sm btn-danger btn-delete-contact" data-toggle="confirmation" data-title="Etes-vous sure ?" data-placement="top" data-path="{{path('admin_contact_delete',{id: c.id})}}">supprimer</a></td>
+						        	</tr>
+								{% endfor %}
+					      	</tbody>
+				      	</table>
+					</div>
+					<div id="admin-list-contact-archived" class="tab-pane fade">
+	                	<table class="table table-bordered table-striped">
+					      	<thead>
+					        	<tr>
+					          		<th>Titre</th>
+					          		<th>Nom</th>
+					          		<th>Email</th>
+					          		<th>Date d'envoie</th>
+					          		<th>Archiver</th>
+					          		<th>Supprimer</th>
+					        	</tr>
+					      	</thead>
+					      	<tbody>
+					      		{% for c in contactArchived %}
+						       		<tr {% if c.viewed == false %}class="info"{% endif %}>
+										<td><a href="{{ path('admin_contact_read',{id: c.id}) }}" >{{ c.title }}</a></td>
+										<td>{{ c.name }}</td>
+										<td>{{ c.email }}</td>
+										<td>{{ c.date|date('Y-m-d H:i:s') }}</td>
+										<td>
+											<a href="{{ path('admin_contact_archive', {id: c.id, where: 'list'}) }}" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> retirer</a>
+										</td>
+										<td><a href="{{ path('admin_contact_delete',{id: c.id}) }}" class="btn btn-sm btn-danger btn-delete-contact" data-toggle="confirmation" data-title="Etes-vous sure ?" data-placement="top" data-path="{{path('admin_contact_delete',{id: c.id})}}">supprimer</a></td>
+						        	</tr>
+								{% endfor %}
+					      	</tbody>
+				      	</table>
+					</div>
+			  	</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+	<script type="text/javascript">
+		
+		//fonction de confirmation de suppression, qui redirige si c'est validé
+		$('.btn-delete-contact').confirmation({
+			rootSelector: '.btn-delete-contact',
+			onConfirm: function() {
+				document.location.href = $($(this).parent().parent().parent().parent().children()[0]).data('path');
+			}
+		});
+
+	</script>
+{% endblock %}

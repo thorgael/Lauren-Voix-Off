@@ -1,0 +1,67 @@
+{% extends "::admin.html.twig" %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Gestion des contenus
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li>
+                    <i class="fa fa-institution"></i> <a href="{{path('admin_reference_list')}}">Mes références</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-plus-square-o"></i> Ajouter une référence
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+  	<div class="row">
+    	<div class="col-md-10 col-md-offset-1 toppad" >
+      		<div class="panel panel-info">
+        		<div class="panel-heading">
+          			<h3 class="panel-title"><i class="fa fa-check-square-o"></i> Formulaire</h3>
+        		</div>
+        		<div class="panel-body">
+          			<div class="row">
+        				<div class=" col-md-10 col-md-offset-1"> 
+          					{{form_start(form)}}
+
+								{{ form_errors(form) }}
+
+							    	<div class="form-group">
+							      		<label>
+							      			{{ form_label(form.name) }}
+							      		</label>
+							        		{{ form_widget(form.name) }}
+							      		<p class="help-block">
+							      			{{ form_errors(form.name) }}
+							      		</p>
+								    </div>
+								    <div class="form-group">
+							      		<label>
+							      			{{ form_label(form.image) }}
+							      		</label>
+							        		{{ form_widget(form.image) }}
+							      		<p class="help-block">
+							      			{{ form_errors(form.image) }}
+							      		</p>
+								    </div>
+								{{ form_widget(form.save) }}
+							{{form_end(form)}}
+        				</div>
+      				</div>
+    			</div>
+         		<div class="panel-footer">
+            	</div>
+  			</div>
+		</div>
+	</div>
+{% endblock %}

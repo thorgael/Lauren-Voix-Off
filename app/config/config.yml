@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@BackOfficeBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -66,3 +67,29 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+
+lexik_maintenance:
+    authorized:
+        path: /_console
+    #authorized_ips: ['127.0.0.1', '172.123.10.14']                       # option facultative, Adresses autorisées
+    driver:
+        #ttl: 3600                                                        # option facultative, Durée de la maintenance, en seconde
+
+        # File driver
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'      # Classe pour le FileDriver
+        options: {file_path: %kernel.root_dir%/lock}                     # file_path est le chemin vers votre fichier, ici le fichier est lock
+
+        # MemCache driver
+        class: Lexik\Bundle\MaintenanceBundle\Drivers\MemCacheDriver     # Classe pour le MemCachedriver
+        options: {key_name: 'maintenance', host: 127.0.0.1, port: 11212} # Vous devez configurer le nom de la clé, l'host et le port
+
+        # Database driver:
+        class: 'Lexik\Bundle\MaintenanceBundle\Drivers\DatabaseDriver'   # Classe pour le DatabaseDriver
+
+        # Option 1 : avec doctrine
+        options: {connection: custom}                                  # option facultative, En option vous pouvez choisir une connexion doctrine, sinon le driver utilisera celle par défaut.

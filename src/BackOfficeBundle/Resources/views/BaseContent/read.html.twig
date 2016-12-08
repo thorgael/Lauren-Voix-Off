@@ -1,0 +1,46 @@
+{% extends "::admin.html.twig" %}
+
+{% block page_heading %}
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Contenu de base
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{path('bo_homepage')}}">Accueil</a>
+                </li>
+                <li>
+                    <i class="fa fa-hand-o-down"></i> <a href="{{ path('admin_base_list') }}">Contenu de base du site</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-align-left"></i> Mon contenu
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+  	<div class="row">
+    	<div class="col-md-10 col-md-offset-1" >
+      		<div class="panel panel-info">
+        		<div class="panel-heading">
+          			<h3 class="panel-title">{{ content.title }}</h3>
+        		</div>
+        		<div class="panel-body">
+                    {{ content.content|raw }}
+    			</div>
+         		<div class="panel-footer">
+                	<a href="{{ path('admin_base_update',{id: content.id}) }}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                    {# {% if content.category == 2 %}
+                        <a href="{{ path('admin_base_image', {id: content.id}) }}" class="btn btn-sm btn-primary"><i class="fa fa-picture-o"></i></a>
+                    {% endif %} #}
+                    <span class="pull-right">
+                	</span>
+            	</div>
+  			</div>
+		</div>
+		</div>
+{% endblock %}
